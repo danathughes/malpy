@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ProjectMalmo.microsoft.com Mission.xsd">
+
+	<About>
+		<Summary>{summary}</Summary>
+		<Description>{description}</Description>
+	</About>
+
+	<!--The MsPerTick parameter *appears* to allow the Minecraft environment to run
+	    faster, see Python_examples/overclock_test.py to see what they do.  The
+	    "real time" tick should be 50 ms, I think.-->
+	<ModSettings>
+		<MsPerTick>{ms_per_tick}</MsPerTick>
+	</ModSettings>
+
+	<!--This section loads up the world and indicates when it should end-->
+	<ServerSection>
+		<ServerHandlers>
+			<!--FileWorldGenerator let's us load the run/save/ folder-->
+			<!--forceReset means ???? -->
+			<FileWorldGenerator src="{world_path}" forceReset="{force_reset}" />
+
+			<!--The players are given 20 minutes, quit once this time is exceeded-->
+			<!--20 minutes == 1.2M seconds-->
+			<ServerQuitFromTimeUp timeLimitMs="{time_limit_ms}" description="{time_up_description}"/>
+			<ServerQuitWhenAnyAgentFinishes description="{agent_finish_description}" />
+		</ServerHandlers>
+	</ServerSection>
+
+	{agents}
+
+</Mission>
